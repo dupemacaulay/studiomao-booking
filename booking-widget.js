@@ -193,15 +193,28 @@ if(seed%5===2) out.push([oh[1]*60-120, oh[1]*60]);
 if(seed===7) out.push([oh[0]*60, oh[1]*60]);
 return out.sort((a,b)=>a[0]-b[0]);
 }
+function loadWindow(){
+return loadRange(windowStart(), windowEnd());
+}
+const inFlight = new Map();
 async function loadRange(from, to){
 const keys=[]; for(let d=new Date(from); d<=to; d=addDays(d,1)) keys.push(iso(d));
+keys.forEach(k=>{ if(!bookable(k) && !S.loaded.has(k)){ S.busy[k]=[]; S.loaded.add(k); } });
 const need = keys.filter(k=>!S.loaded.has(k));
 if(!need.length) return;
+const tag = need[0]+'_'+need[need.length-1];
+if(inFlight.has(tag)) return inFlight.get(tag);
+const job = fetchRange(from, to, need).finally(()=>inFlight.delete(tag));
+inFlight.set(tag, job);
+return job;
+}
+async function fetchRange(from, to, need){
 if(CONFIG.DEMO || !CONFIG.API_URL){
 need.forEach(k=>{ S.busy[k]=demoBusy(k); S.loaded.add(k); });
 return;
 }
-const res = await jsonp({ action:'availability', from:iso(from), to:iso(to) });
+const lo = need[0], hi = need[need.length-1];
+const res = await jsonp({ action:'availability', from:lo, to:hi });
 if(!res.ok) throw new Error(res.error||'Availability unavailable');
 need.forEach(k=>{ S.busy[k]=res.busy[k]||[]; S.loaded.add(k); });
 if(res.config){ Object.assign(CONFIG.HOURS,res.config.hours||{}); Object.assign(CONFIG.PRICING,res.config.pricing||{}); }
@@ -211,10 +224,17 @@ const calEl = el('calendar');
 async function render(){
 const [from,to] = rangeFor();
 el('title').textContent = titleFor();
-calEl.innerHTML = '<p class="loading">Loading availability…</p>';
+if(missingIn(from,to)) calEl.innerHTML = '<p class="loading">Loading availability…</p>';
 try { await loadRange(from,to); }
 catch(e){ calEl.innerHTML = '<div class="banner">Availability didn\'t load: '+e.message+'. Refresh to try again.</div>'; return; }
 if(S.view==='month') renderMonth(); else renderGrid(S.view==='week');
+}
+function missingIn(from,to){
+for(let d=new Date(from); d<=to; d=addDays(d,1)){
+const k=iso(d);
+if(bookable(k) && !S.loaded.has(k)) return true;
+}
+return false;
 }
 function rangeFor(){
 if(S.view==='month'){
@@ -600,7 +620,13 @@ el('done-links').innerHTML = 'Before your visit, please read our '
 + `<a href="${CONFIG.LINKS.rules}" target="_blank" rel="noopener">studio rules</a>, `
 + `<a href="${CONFIG.LINKS.policy}" target="_blank" rel="noopener">booking policy</a> and `
 + `<a href="${CONFIG.LINKS.faqs}" target="_blank" rel="noopener">FAQs</a>.`;
-syncSeg(); fillDurations(); syncSeats(); render();
+syncSeg(); fillDurations(); syncSeats();
+(async ()=>{
+calEl.innerHTML = '<p class="loading">Loading availability…</p>';
+try { await loadWindow(); }
+catch(e){ console.warn('studio.MAO: could not preload availability —', e.message); }
+await render();
+})();
 }
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
 else boot();
