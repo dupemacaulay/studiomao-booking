@@ -1,7 +1,7 @@
 (function () {
 var FONT = 'https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap';
 var CSS = "/* ============================================================\n   studio.MAO booking widget\n   Palette: paper white, ink black, amber accent\n   ============================================================ */\n#smao-booking{\n  --paper:#FFFFFF;\n  --ink:#111111;\n  --ink-60:#5F5F5F;\n  --ink-30:#9A9A9A;\n  --rule:#E4E4E4;\n  --wash:#F7F7F7;\n  --amber:#FFC500;\n  --amber-deep:#CC9E00;\n  --amber-wash:#FFF6D1;\n  --busy:#ECECEC;\n  --hatch:#D8D8D8;\n  --danger:#B4231C;\n  --r:10px;\n  --display:'Space Mono',ui-monospace,monospace;\n  --body:'Space Mono',ui-monospace,monospace;\n  --mono:'Space Mono',ui-monospace,monospace;\n}\n#smao-booking *{box-sizing:border-box}\n#smao-booking{margin:0}\n#smao-booking{\n  background:var(--paper); max-width:1120px; margin:0 auto; padding:4px 0 8px; text-align:left; color:var(--ink);\n  font-family:var(--body); font-size:13.5px; line-height:1.6;\n  -webkit-font-smoothing:antialiased;\n}\n#smao-booking a{color:inherit;text-decoration:underline;text-decoration-color:var(--amber-deep);text-decoration-thickness:1px;text-underline-offset:3px}\n#smao-booking a:hover{text-decoration-thickness:2px}\n#smao-booking .smx{max-width:1120px;margin:0 auto;padding:28px 20px 64px}\n\n/* --- masthead ------------------------------------------------ */\n#smao-booking .mast{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;\n  border-bottom:2px solid var(--ink);padding-bottom:14px;margin-bottom:26px}\n#smao-booking .mast h1{font-family:var(--display);font-weight:700;font-size:clamp(22px,3.6vw,32px);\n  letter-spacing:-.02em;margin:0;line-height:1.05}\n#smao-booking .mast .sub{font-family:var(--mono);font-size:11.5px;color:var(--ink-60);margin:0}\n\n/* --- layout -------------------------------------------------- */\n#smao-booking .grid{display:grid;grid-template-columns:1fr;gap:32px}\n\n#smao-booking .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;\n  color:var(--ink-30);margin:0 0 10px}\n\n/* --- calendar controls --------------------------------------- */\n#smao-booking .cal-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:wrap}\n#smao-booking .nav{display:flex;align-items:center;gap:6px;flex-wrap:wrap}\n#smao-booking .switchers{display:flex;gap:8px;align-items:center;margin-left:auto;flex-wrap:wrap}\n#smao-booking .nav h2{font-family:var(--display);font-size:14.5px;font-weight:700;margin:0 6px;min-width:180px;letter-spacing:-.01em}\n#smao-booking .icon-btn{width:30px;height:30px;border:1px solid var(--rule);background:var(--paper);border-radius:8px;\n  cursor:pointer;color:var(--ink);font-size:15px;line-height:1;display:grid;place-items:center;transition:.15s}\n#smao-booking .icon-btn:hover{border-color:var(--ink);background:var(--wash)}\n#smao-booking .seg{display:inline-flex;border:1px solid var(--rule);border-radius:9px;overflow:hidden}\n#smao-booking .seg button{border:0;background:var(--paper);font-family:var(--mono);font-size:11px;letter-spacing:.08em;\n  text-transform:uppercase;padding:7px 13px;cursor:pointer;color:var(--ink-60);transition:.15s}\n#smao-booking .seg button+button{border-left:1px solid var(--rule)}\n#smao-booking .seg button[aria-pressed=\"true\"]{background:var(--ink);color:var(--paper)}\n#smao-booking .today-btn{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;\n  border:1px solid var(--rule);background:var(--paper);border-radius:8px;padding:7px 11px;cursor:pointer}\n#smao-booking .today-btn:hover{border-color:var(--ink)}\n\n/* --- month view ---------------------------------------------- */\n#smao-booking .dow{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:4px}\n#smao-booking .dow span{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--ink-30);text-align:center;padding:4px 0}\n#smao-booking .month{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}\n#smao-booking .day{aspect-ratio:1/.92;border:1px solid var(--rule);border-radius:var(--r);background:var(--paper);\n  padding:7px 8px;cursor:pointer;text-align:left;font:inherit;color:inherit;position:relative;\n  display:flex;flex-direction:column;justify-content:space-between;transition:.14s}\n#smao-booking .day:hover:not(:disabled){border-color:var(--ink);transform:translateY(-1px)}\n#smao-booking .day .n{font-family:var(--mono);font-size:13px;font-weight:400}\n#smao-booking .day .free{font-family:var(--mono);font-size:9.5px;color:var(--amber-deep);letter-spacing:.02em}\n#smao-booking .day.out{opacity:.32}\n#smao-booking .day:disabled{cursor:not-allowed;background:var(--wash);color:var(--ink-30)}\n#smao-booking .day:disabled .free{color:var(--ink-30)}\n#smao-booking .day.sel{border-color:var(--amber);box-shadow:inset 0 0 0 2px var(--amber);background:var(--amber-wash)}\n#smao-booking .day.today .n::after{content:\"\";display:block;height:2px;background:var(--ink);margin-top:2px}\n\n/* --- week / day grid ----------------------------------------- */\n#smao-booking .tgwrap{border:1px solid var(--rule);border-radius:var(--r);overflow:hidden}\n#smao-booking .tghead{display:grid;background:var(--wash);border-bottom:1px solid var(--rule)}\n#smao-booking .tghead div{padding:8px 4px;text-align:center;font-family:var(--mono);font-size:10.5px;color:var(--ink-60);\n  letter-spacing:.06em}\n#smao-booking .tghead div b{display:block;font-size:14px;color:var(--ink);font-weight:700;margin-top:2px}\n#smao-booking .tghead div.closed{color:var(--ink-30)}\n#smao-booking .tgbody{display:grid;background:var(--rule);gap:1px;padding:1px 0 0}\n#smao-booking .tgrow{display:grid;gap:1px}\n#smao-booking .tlabel{font-family:var(--mono);font-size:10.5px;color:var(--ink-30);padding:4px 8px;text-align:right;\n  white-space:nowrap;background:var(--paper);display:flex;align-items:flex-start;justify-content:flex-end}\n#smao-booking .slot{border:0;min-height:38px;cursor:pointer;background:var(--paper);\n  position:relative;transition:background .1s;font:inherit;padding:0;touch-action:pan-y;\n  -webkit-user-select:none;user-select:none}\n#smao-booking .slot:hover:not(:disabled){background:var(--amber-wash)}\n#smao-booking .slot:disabled{cursor:not-allowed;background:var(--busy);\n  background-image:repeating-linear-gradient(45deg,transparent,transparent 4px,var(--hatch) 4px,var(--hatch) 5px)}\n#smao-booking .slot.inrange,#smao-booking .slot.start{background:var(--amber)}\n#smao-booking .slot.closed{background:var(--wash);background-image:none;cursor:not-allowed}\n#smao-booking .dragging .slot{cursor:grabbing}\n\n/* --- key ----------------------------------------------------- */\n#smao-booking .key{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;font-family:var(--mono);font-size:10.5px;color:var(--ink-60)}\n#smao-booking .key i{width:12px;height:12px;border-radius:3px;display:inline-block;vertical-align:-2px;margin-right:5px;border:1px solid var(--rule)}\n#smao-booking .key .k-free{background:var(--paper)}\n#smao-booking .key .k-busy{background:var(--busy);background-image:repeating-linear-gradient(45deg,transparent,transparent 4px,var(--hatch) 4px,var(--hatch) 5px)}\n#smao-booking .key .k-sel{background:var(--amber);border-color:var(--amber)}\n#smao-booking .key .k-closed{background:var(--wash)}\n\n/* --- panel --------------------------------------------------- */\n#smao-booking .panel{border:1px solid var(--rule);border-radius:14px;padding:22px}\n#smao-booking .panel h3{font-family:var(--display);font-size:17px;margin:0 0 4px;letter-spacing:-.02em}\n#smao-booking .hint{font-size:12.5px;color:var(--ink-60);margin:0 0 16px}\n\n#smao-booking label{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;\n  color:var(--ink-60);margin:0 0 5px}\n#smao-booking input,#smao-booking select,#smao-booking textarea{width:100%;font-family:var(--body);font-size:13.5px;color:var(--ink);background:var(--paper);\n  border:1px solid var(--rule);border-radius:8px;padding:9px 11px;transition:.15s}\n#smao-booking input:focus,#smao-booking select:focus,#smao-booking textarea:focus{outline:0;border-color:var(--amber);box-shadow:0 0 0 3px var(--amber-wash)}\n#smao-booking input:disabled,#smao-booking select:disabled{background:var(--wash);color:var(--ink-30)}\n#smao-booking .field{margin-bottom:14px}\n#smao-booking .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}\n#smao-booking .err{color:var(--danger);font-size:12px;margin-top:5px;display:none}\n#smao-booking .err.on{display:block}\n\n/* --- seating ------------------------------------------------- */\n#smao-booking .seats{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px}\n#smao-booking .seat{border:1px solid var(--rule);border-radius:9px;padding:8px 6px 7px;cursor:pointer;background:var(--paper);\n  text-align:center;transition:.14s}\n#smao-booking .seat:hover{border-color:var(--ink)}\n#smao-booking .seat input{position:absolute;opacity:0;pointer-events:none}\n#smao-booking .seat svg{display:block;width:100%;height:46px}\n#smao-booking .seat span{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-60);\n  display:block;margin-top:5px}\n#smao-booking .seat .cap{font-size:9px;color:var(--ink-30);letter-spacing:.04em;margin-top:1px}\n#smao-booking .seat.on{border-color:var(--amber);background:var(--amber-wash);box-shadow:inset 0 0 0 1px var(--amber)}\n#smao-booking .seat.on span{color:var(--ink)}\n#smao-booking .seat.off{opacity:.35;cursor:not-allowed;background:var(--wash)}\n#smao-booking .seat.off:hover{border-color:var(--rule)}\n\n/* --- quote --------------------------------------------------- */\n#smao-booking .quote{border-top:2px solid var(--ink);margin-top:20px;padding-top:14px}\n#smao-booking .qline{display:flex;justify-content:space-between;gap:10px;font-family:var(--mono);font-size:12.5px;padding:4px 0;color:var(--ink-60)}\n#smao-booking .qline b{color:var(--ink);font-weight:400}\n#smao-booking .qline.sub{border-top:1px solid var(--rule);margin-top:6px;padding-top:9px}\n#smao-booking .qline.total{font-size:15px;color:var(--ink);padding-top:9px}\n#smao-booking .qline.total b{font-weight:700}\n#smao-booking .qnote{font-size:11.5px;color:var(--ink-30);margin-top:8px;line-height:1.45}\n#smao-booking .badge{display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;\n  background:var(--amber-wash);color:var(--amber-deep);border-radius:20px;padding:2px 8px;margin-left:6px}\n\n#smao-booking .cta{width:100%;margin-top:16px;background:var(--ink);color:var(--paper);border:0;border-radius:9px;\n  padding:14px;font-family:var(--display);font-size:13.5px;font-weight:700;letter-spacing:.02em;cursor:pointer;transition:.15s}\n#smao-booking .cta:hover:not(:disabled){background:var(--amber-deep)}\n#smao-booking .cta:disabled{background:var(--rule);color:var(--ink-30);cursor:not-allowed}\n\n/* --- states -------------------------------------------------- */\n#smao-booking .loading{font-family:var(--mono);font-size:11px;color:var(--ink-30);letter-spacing:.08em;text-transform:uppercase}\n#smao-booking .banner{border:1px solid #F3E3A6;border-left:3px solid var(--amber);background:#FFFCEF;\n  border-radius:8px;padding:10px 12px;font-size:11.5px;margin-bottom:18px;line-height:1.55;color:var(--ink-60)}\n\n#smao-booking .done{text-align:center;padding:34px 20px}\n#smao-booking .done .tick{width:52px;height:52px;border-radius:50%;background:var(--amber);display:grid;place-items:center;\n  margin:0 auto 16px;font-size:26px;color:var(--ink)}\n#smao-booking .done h3{font-size:19px;margin-bottom:8px}\n#smao-booking .done p{color:var(--ink-60);font-size:14px;max-width:400px;margin:0 auto 8px}\n#smao-booking .ref{font-family:var(--mono);font-size:13px;background:var(--wash);border:1px dashed var(--rule);\n  border-radius:8px;padding:9px 12px;display:inline-block;margin:12px 0}\n#smao-booking .paybox{border:1px solid #F3E3A6;background:#FFFCEF;border-radius:8px;padding:14px;margin:16px auto 4px;\n  max-width:420px;text-align:left;font-size:12.5px;line-height:1.7}\n#smao-booking .pay-status{font-family:var(--mono);font-size:11.5px;color:var(--ink-60);margin:10px 0 0;line-height:1.6}\n#smao-booking .pay-status.bad{color:var(--danger)}\n#smao-booking .policy-links{font-family:var(--mono);font-size:11px;color:var(--ink-30);margin-top:18px;\n  padding-top:14px;border-top:1px solid var(--rule);line-height:1.9}\n#smao-booking .policy-links a{color:var(--ink-60)}\n#smao-booking .paybox b{display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-60);margin-bottom:6px}\n#smao-booking :focus-visible{outline:2px solid var(--amber-deep);outline-offset:2px}\n@media(prefers-reduced-motion:reduce){#smao-booking *{transition:none!important;animation:none!important}}\n\n#smao-booking button,#smao-booking input,#smao-booking select,#smao-booking textarea{font-family:var(--body);letter-spacing:normal;text-transform:none}\n#smao-booking button{margin:0;box-shadow:none;text-shadow:none;min-width:0;line-height:1.4}\n#smao-booking h1,#smao-booking h2,#smao-booking h3{text-transform:none;color:var(--ink)}\n#smao-booking p{margin-top:0}";
-var HTML = "<header class=\"mast\">\n    <h1>Book the Studio</h1>\n    <p class=\"sub\">3 hours minimum \u00b7 book 7 to 90 days ahead</p>\n  </header>\n\n  <div class=\"grid\">\n    <!-- ================= CALENDAR ================= -->\n    <section id=\"mao-cal-section\">\n      <p class=\"eyebrow\">1 \u2014 Pick your time \u00b7 drag down the grid to take more hours</p>\n      <div class=\"cal-bar\">\n        <div class=\"nav\">\n          <button class=\"icon-btn\" id=\"mao-prev\" aria-label=\"Previous\">\u2039</button>\n          <button class=\"icon-btn\" id=\"mao-next\" aria-label=\"Next\">\u203a</button>\n          <h2 id=\"mao-title\">\u2014</h2>\n        </div>\n        <div class=\"switchers\">\n          <button class=\"today-btn\" id=\"mao-today\">Earliest date</button>\n          <button class=\"today-btn\" id=\"mao-clear\" disabled>Clear selection</button>\n          <div class=\"seg\" role=\"group\" aria-label=\"Clock format\">\n            <button data-clock=\"24\" aria-pressed=\"true\">24h</button>\n            <button data-clock=\"12\" aria-pressed=\"false\">12h</button>\n          </div>\n          <div class=\"seg\" role=\"group\" aria-label=\"Calendar view\">\n            <button data-view=\"month\" aria-pressed=\"true\">Month</button>\n            <button data-view=\"week\" aria-pressed=\"false\">Week</button>\n            <button data-view=\"day\" aria-pressed=\"false\">Day</button>\n          </div>\n        </div>\n      </div>\n\n      <div id=\"mao-calendar\"><p class=\"loading\">Loading availability\u2026</p></div>\n\n      <div class=\"key\">\n        <span><i class=\"k-free\"></i>Available</span>\n        <span><i class=\"k-busy\"></i>Already booked</span>\n        <span><i class=\"k-sel\"></i>Your selection</span>\n        <span><i class=\"k-closed\"></i>Closed</span>\n      </div>\n    </section>\n\n    <!-- ================= FORM ================= -->\n    <aside class=\"panel\">\n      <div id=\"mao-formView\">\n        <p class=\"eyebrow\">2 \u2014 Your details</p>\n        <h3>Booking request</h3>\n        <p class=\"hint\">Pick a slot on the calendar, or set the date and time here.</p>\n\n        <div class=\"banner\">\n          Need more than one day, or something this form doesn't cover? Email\n          <a href=\"mailto:studiomao.lagos@gmail.com\">studiomao.lagos@gmail.com</a> or WhatsApp\n          <a href=\"https://wa.me/2348172026771\">0817 202 6771</a>.\n        </div>\n\n        <div class=\"two\">\n          <div class=\"field\">\n            <label for=\"mao-f-date\">Date</label>\n            <input type=\"date\" id=\"mao-f-date\">\n          </div>\n          <div class=\"field\">\n            <label for=\"mao-f-start\">Start</label>\n            <select id=\"mao-f-start\"><option value=\"\">\u2014</option></select>\n          </div>\n        </div>\n        <div class=\"field\">\n          <label for=\"mao-f-dur\">Duration</label>\n          <select id=\"mao-f-dur\"><option value=\"\">\u2014</option></select>\n          <p class=\"err\" id=\"mao-e-time\"></p>\n        </div>\n\n        <div class=\"field\">\n          <label for=\"mao-f-name\">Full name</label>\n          <input id=\"mao-f-name\" autocomplete=\"name\" placeholder=\"Ada Nwosu\">\n        </div>\n        <div class=\"two\">\n          <div class=\"field\">\n            <label for=\"mao-f-email\">Email</label>\n            <input id=\"mao-f-email\" type=\"email\" autocomplete=\"email\" placeholder=\"ada@company.com\">\n          </div>\n          <div class=\"field\">\n            <label for=\"mao-f-phone\">Phone</label>\n            <input id=\"mao-f-phone\" type=\"tel\" autocomplete=\"tel\" placeholder=\"0803 000 0000\">\n          </div>\n        </div>\n        <div class=\"field\">\n          <label for=\"mao-f-org\">Organisation <span style=\"text-transform:none;letter-spacing:0\">(optional)</span></label>\n          <input id=\"mao-f-org\" autocomplete=\"organization\" placeholder=\"Company or group name\">\n        </div>\n        <div class=\"field\">\n          <label for=\"mao-f-guests\">Expected guests</label>\n          <input id=\"mao-f-guests\" type=\"number\" min=\"1\" max=\"200\" placeholder=\"e.g. 30\">\n        </div>\n\n        <div class=\"field\">\n          <label>Seating arrangement</label>\n          <div class=\"seats\" id=\"mao-seats\"></div>\n          <p class=\"qnote\" id=\"mao-seat-note\"></p>\n        </div>\n\n        <div class=\"field\">\n          <label for=\"mao-f-notes\">Anything we should know <span style=\"text-transform:none;letter-spacing:0\">(optional)</span></label>\n          <textarea id=\"mao-f-notes\" rows=\"2\" placeholder=\"Projector, catering access, early setup\u2026\"></textarea>\n        </div>\n\n        <!-- quote -->\n        <div class=\"quote\" id=\"mao-quote\">\n          <div class=\"qline\"><span>Select a time to see the cost</span><b>\u2014</b></div>\n        </div>\n\n        <p class=\"err\" id=\"mao-e-form\"></p>\n        <button class=\"cta\" id=\"mao-submit\" disabled>Complete your Booking</button>\n        <p class=\"qnote\" id=\"mao-hold-note\"></p>\n      </div>\n\n      <!-- success -->\n      <div id=\"mao-doneView\" style=\"display:none\" class=\"done\">\n        <div class=\"tick\" id=\"mao-tick\">\u2713</div>\n        <h3 id=\"mao-done-title\">Thank you for booking</h3>\n        <p id=\"mao-done-msg\"></p>\n        <p class=\"qnote\" id=\"mao-done-hold\"></p>\n        <div class=\"ref\" id=\"mao-done-ref\"></div>\n        <p id=\"mao-done-sub\" style=\"font-size:13px\"></p>\n        <div id=\"mao-done-pay\"></div>\n        <button class=\"cta\" id=\"mao-pay-btn\" style=\"display:none\">Pay with Paystack</button>\n        <p class=\"pay-status\" id=\"mao-pay-status\"></p>\n        <button class=\"cta\" id=\"mao-again\" style=\"background:var(--paper);color:var(--ink);border:1px solid var(--rule)\">Make another booking</button>\n        <p class=\"policy-links\" id=\"mao-done-links\"></p>\n      </div>\n    </aside>\n  </div>";
+var HTML = "<header class=\"mast\">\n    <h1>Book the Studio</h1>\n    <p class=\"sub\">First booking of the day is 4 hours minimum \u00b7 Book 7 to 90 days ahead</p>\n  </header>\n\n  <div class=\"grid\">\n    <!-- ================= CALENDAR ================= -->\n    <section id=\"mao-cal-section\">\n      <p class=\"eyebrow\">1 \u2014 Pick your time \u00b7 drag down the grid to take more hours</p>\n      <div class=\"cal-bar\">\n        <div class=\"nav\">\n          <button class=\"icon-btn\" id=\"mao-prev\" aria-label=\"Previous\">\u2039</button>\n          <button class=\"icon-btn\" id=\"mao-next\" aria-label=\"Next\">\u203a</button>\n          <h2 id=\"mao-title\">\u2014</h2>\n        </div>\n        <div class=\"switchers\">\n          <button class=\"today-btn\" id=\"mao-today\">Earliest date</button>\n          <button class=\"today-btn\" id=\"mao-clear\" disabled>Clear selection</button>\n          <div class=\"seg\" role=\"group\" aria-label=\"Clock format\">\n            <button data-clock=\"24\" aria-pressed=\"true\">24h</button>\n            <button data-clock=\"12\" aria-pressed=\"false\">12h</button>\n          </div>\n          <div class=\"seg\" role=\"group\" aria-label=\"Calendar view\">\n            <button data-view=\"month\" aria-pressed=\"true\">Month</button>\n            <button data-view=\"week\" aria-pressed=\"false\">Week</button>\n            <button data-view=\"day\" aria-pressed=\"false\">Day</button>\n          </div>\n        </div>\n      </div>\n\n      <div id=\"mao-calendar\"><p class=\"loading\">Loading availability\u2026</p></div>\n\n      <div class=\"key\">\n        <span><i class=\"k-free\"></i>Available</span>\n        <span><i class=\"k-busy\"></i>Already booked</span>\n        <span><i class=\"k-sel\"></i>Your selection</span>\n        <span><i class=\"k-closed\"></i>Closed</span>\n      </div>\n    </section>\n\n    <!-- ================= FORM ================= -->\n    <aside class=\"panel\">\n      <div id=\"mao-formView\">\n        <p class=\"eyebrow\">2 \u2014 Your details</p>\n        <h3>Booking request</h3>\n        <p class=\"hint\">Pick a slot on the calendar, or set the date and time here. Bookings start at\n          4 hours; shorter 2-hour slots open up when part of the day is already taken.</p>\n\n        <div class=\"banner\">\n          Need more than one day, or something this form doesn't cover? Email\n          <a href=\"mailto:studiomao.lagos@gmail.com\">studiomao.lagos@gmail.com</a> or WhatsApp\n          <a href=\"https://wa.me/2348172026771\">0817 202 6771</a>.\n        </div>\n\n        <div class=\"two\">\n          <div class=\"field\">\n            <label for=\"mao-f-date\">Date</label>\n            <input type=\"date\" id=\"mao-f-date\">\n          </div>\n          <div class=\"field\">\n            <label for=\"mao-f-start\">Start</label>\n            <select id=\"mao-f-start\"><option value=\"\">\u2014</option></select>\n          </div>\n        </div>\n        <div class=\"field\">\n          <label for=\"mao-f-dur\">Duration</label>\n          <select id=\"mao-f-dur\"><option value=\"\">\u2014</option></select>\n          <p class=\"err\" id=\"mao-e-time\"></p>\n        </div>\n\n        <div class=\"field\">\n          <label for=\"mao-f-name\">Full name</label>\n          <input id=\"mao-f-name\" autocomplete=\"name\" placeholder=\"Ada Nwosu\">\n        </div>\n        <div class=\"two\">\n          <div class=\"field\">\n            <label for=\"mao-f-email\">Email</label>\n            <input id=\"mao-f-email\" type=\"email\" autocomplete=\"email\" placeholder=\"ada@company.com\">\n          </div>\n          <div class=\"field\">\n            <label for=\"mao-f-phone\">Phone</label>\n            <input id=\"mao-f-phone\" type=\"tel\" autocomplete=\"tel\" placeholder=\"0803 000 0000\">\n          </div>\n        </div>\n        <div class=\"field\">\n          <label for=\"mao-f-org\">Organisation <span style=\"text-transform:none;letter-spacing:0\">(optional)</span></label>\n          <input id=\"mao-f-org\" autocomplete=\"organization\" placeholder=\"Company or group name\">\n        </div>\n        <div class=\"field\">\n          <label for=\"mao-f-guests\">Expected guests</label>\n          <input id=\"mao-f-guests\" type=\"number\" min=\"1\" max=\"200\" placeholder=\"e.g. 30\">\n        </div>\n\n        <div class=\"field\">\n          <label>Seating arrangement</label>\n          <div class=\"seats\" id=\"mao-seats\"></div>\n          <p class=\"qnote\" id=\"mao-seat-note\"></p>\n        </div>\n\n        <div class=\"field\">\n          <label for=\"mao-f-notes\">Anything we should know <span style=\"text-transform:none;letter-spacing:0\">(optional)</span></label>\n          <textarea id=\"mao-f-notes\" rows=\"2\" placeholder=\"Projector, catering access, early setup\u2026\"></textarea>\n        </div>\n\n        <!-- quote -->\n        <div class=\"quote\" id=\"mao-quote\">\n          <div class=\"qline\"><span>Select a time to see the cost</span><b>\u2014</b></div>\n        </div>\n\n        <p class=\"err\" id=\"mao-e-form\"></p>\n        <button class=\"cta\" id=\"mao-submit\" disabled>Complete your Booking</button>\n        <p class=\"qnote\" id=\"mao-hold-note\"></p>\n      </div>\n\n      <!-- success -->\n      <div id=\"mao-doneView\" style=\"display:none\" class=\"done\">\n        <div class=\"tick\" id=\"mao-tick\">\u2713</div>\n        <h3 id=\"mao-done-title\">Thank you for booking</h3>\n        <p id=\"mao-done-msg\"></p>\n        <p class=\"qnote\" id=\"mao-done-hold\"></p>\n        <div class=\"ref\" id=\"mao-done-ref\"></div>\n        <p id=\"mao-done-sub\" style=\"font-size:13px\"></p>\n        <div id=\"mao-done-pay\"></div>\n        <button class=\"cta\" id=\"mao-pay-btn\" style=\"display:none\">Pay with Paystack</button>\n        <p class=\"pay-status\" id=\"mao-pay-status\"></p>\n        <button class=\"cta\" id=\"mao-again\" style=\"background:var(--paper);color:var(--ink);border:1px solid var(--rule)\">Make another booking</button>\n        <p class=\"policy-links\" id=\"mao-done-links\"></p>\n      </div>\n    </aside>\n  </div>";
 function inject() {
 if (!document.getElementById('smao-font')) {
 var l = document.createElement('link');
@@ -34,9 +34,12 @@ DEMO: true,
 CURRENCY: '₦',
 SLOT_MINUTES: 60,
 BUFFER_MINUTES: 60,
-MIN_HOURS: 3,
-MAX_HOURS: 8,
-GRID_HOURS: [8, 18],
+FIRST_MIN_HOURS: 4,
+EXTRA_MIN_HOURS: 2,
+FULL_DAY_HOURS: 8,
+FIRST_STARTS: { 0:[], 1:[9,14], 2:[9,14], 3:[9,14], 4:[9,14], 5:[9,14], 6:[10] },
+MAX_HOURS: 9,
+GRID_HOURS: [8, 19],
 LEAD_DAYS_MIN: 7,
 LEAD_DAYS_MAX: 90,
 CLOCK: '24',
@@ -51,11 +54,10 @@ faqs: 'https://studiomao.carrd.co/#faqs'
 PAYMENT_DETAILS: 'Account name: MAO Creative Design Studio\nBank: Providus Bank\n'
 + 'Account number: 7900838582\n'
 + 'Use your booking reference as the transfer narration.',
-HOURS: { 0:null, 1:[9,17], 2:[9,17], 3:[9,17], 4:[9,17], 5:[9,17], 6:[10,16] },
+HOURS: { 0:null, 1:[9,18], 2:[9,18], 3:[9,18], 4:[9,18], 5:[9,18], 6:[10,16] },
 PRICING: {
 hourlyRate: 25000,
-discountFromHours: 4, discountPct: 0.05,
-flatFromHours: 7, flatRate: 160000,
+flatFromHours: 8, flatRate: 185000,
 cautionBase: 10000, cautionPct: 0.10
 },
 SEATING: [
@@ -101,7 +103,7 @@ const end = windowEnd();
 for(let d=windowStart(); d<=end; d=addDays(d,1)){
 const k=iso(d);
 if(!S.loaded.has(k)) return null;
-if(hoursFor(k) && freeHours(k)>=CONFIG.MIN_HOURS) return d;
+if(hoursFor(k) && startTimes(k).length) return d;
 }
 return null;
 }
@@ -117,37 +119,58 @@ const oh = hoursFor(dateStr); if(!oh) return false;
 if(from < oh[0]*60 || to > oh[1]*60) return false;
 return !blocked(dateStr).some(b => from < b[1] && to > b[0]);
 }
-function startTimes(dateStr){
-const oh = hoursFor(dateStr); if(!oh || !bookable(dateStr)) return [];
-const out=[], step=CONFIG.SLOT_MINUTES, min=CONFIG.MIN_HOURS*60;
-for(let t=oh[0]*60; t+min<=oh[1]*60; t+=step){
-if(slotFree(dateStr,t,t+min)) out.push(t);
+function firstStarts(dateStr){
+return (CONFIG.FIRST_STARTS[parseISO(dateStr).getDay()]||[]).map(h=>h*60);
 }
+function canBook(dateStr, start, hours){
+const oh = hoursFor(dateStr);
+if(!oh || !bookable(dateStr) || !hours) return false;
+const end = start + hours*60;
+if(start < oh[0]*60 || end > oh[1]*60) return false;
+if(blocked(dateStr).some(b => start < b[1] && end > b[0])) return false;
+const busy = busyFor(dateStr);
+if(hours >= CONFIG.FULL_DAY_HOURS) return !busy.length && firstStarts(dateStr).includes(start);
+if(!busy.length) return firstStarts(dateStr).includes(start) && hours >= CONFIG.FIRST_MIN_HOURS;
+return hours >= CONFIG.EXTRA_MIN_HOURS;
+}
+function durationsFor(dateStr, start){
+const out=[];
+for(let h=1; h<=CONFIG.MAX_HOURS; h++) if(canBook(dateStr,start,h)) out.push(h);
 return out;
 }
-function maxHours(dateStr, start){
-const oh = hoursFor(dateStr); if(!oh) return 0;
-let end = oh[1]*60;
-blocked(dateStr).forEach(b => { if(b[0]>=start && b[0]<end) end=b[0]; });
-return Math.max(0, Math.min(CONFIG.MAX_HOURS, Math.floor((end-start)/60)));
+function startTimes(dateStr){
+const oh = hoursFor(dateStr); if(!oh || !bookable(dateStr)) return [];
+const out=[];
+for(let t=oh[0]*60; t<oh[1]*60; t+=CONFIG.SLOT_MINUTES)
+if(durationsFor(dateStr,t).length) out.push(t);
+return out;
 }
-function freeHours(dateStr){
-const oh=hoursFor(dateStr); if(!oh||!bookable(dateStr)) return 0;
-let mins=0;
-for(let t=oh[0]*60;t<oh[1]*60;t+=CONFIG.SLOT_MINUTES) if(slotFree(dateStr,t,t+CONFIG.SLOT_MINUTES)) mins+=CONFIG.SLOT_MINUTES;
-return mins/60;
+function maxHours(dateStr, start){ const d=durationsFor(dateStr,start); return d.length?d[d.length-1]:0; }
+function minHoursAt(dateStr, start){ const d=durationsFor(dateStr,start); return d.length?d[0]:0; }
+function bestHours(dateStr){
+return startTimes(dateStr).reduce((m,t)=>Math.max(m,maxHours(dateStr,t)),0);
+}
+function coveringStart(dateStr, t){
+const starts = startTimes(dateStr);
+let best = null;
+starts.forEach(st=>{
+if(st<=t && st+maxHours(dateStr,st)*60 > t) best = st;
+});
+if(best!==null) return best;
+const after = starts.filter(st=>st>t);
+return after.length ? after[0] : (starts.length ? starts[starts.length-1] : null);
+}
+function coverableAt(dateStr, t){
+return startTimes(dateStr).some(st => st<=t && st+maxHours(dateStr,st)*60 > t);
 }
 function quote(dateStr, hours){
 const P=CONFIG.PRICING;
-let base, flat=false, disc=0;
+let base, flat=false;
 if(hours >= P.flatFromHours){ base=P.flatRate; flat=true; }
-else {
-base = hours * P.hourlyRate;
-if(hours >= P.discountFromHours){ disc = base*P.discountPct; base -= disc; }
-}
+else base = hours * P.hourlyRate;
 const total = base;
 const caution = P.cautionBase + total*P.cautionPct;
-return { base, flat, disc, total, caution, dueNow: total+caution };
+return { base, flat, total, caution, dueNow: total+caution };
 }
 let paystackLoading=null;
 function loadPaystack(){
@@ -258,10 +281,10 @@ let h='<div class="dow">'+['MON','TUE','WED','THU','FRI','SAT','SUN'].map(d=>`<s
 for(let i=0;i<42;i++){
 const d=addDays(gridStart,i), k=iso(d);
 const out=d.getMonth()!==S.cursor.getMonth();
-const closed=!hoursFor(k), inWindow=bookable(k), free=freeHours(k);
-const dis=closed||!inWindow||free<CONFIG.MIN_HOURS;
+const closed=!hoursFor(k), inWindow=bookable(k), best=closed?0:bestHours(k);
+const dis=closed||!inWindow||!best;
 const cls=['day',out?'out':'',k===iso(new Date())?'today':'',k===S.selDate?'sel':''].join(' ');
-const note = !inWindow ? '' : closed ? 'Closed' : free<CONFIG.MIN_HOURS ? 'Full' : free+'h free';
+const note = !inWindow ? '' : closed ? 'Closed' : !best ? 'Full' : 'up to '+best+'h';
 h+=`<button class="${cls}" data-date="${k}" ${dis?'disabled':''}><span class="n">${d.getDate()}</span><span class="free">${note}</span></button>`;
 }
 calEl.innerHTML=h+'</div>';
@@ -280,7 +303,7 @@ h+=`<div class="tgrow" style="${cols}"><div class="tlabel">${fmtTime(t)}</div>`;
 days.forEach(d=>{
 const k=iso(d), oh=hoursFor(k);
 const shut = !oh || t<oh[0]*60 || t+CONFIG.SLOT_MINUTES>oh[1]*60 || !bookable(k);
-const free = !shut && slotFree(k,t,t+CONFIG.SLOT_MINUTES);
+const free = !shut && slotFree(k,t,t+CONFIG.SLOT_MINUTES) && coverableAt(k,t);
 let cls='slot';
 if(shut) cls+=' closed';
 if(S.selDate===k && S.selStart!==null && S.selHours && t>=S.selStart && t<S.selStart+S.selHours*60)
@@ -310,11 +333,8 @@ if(!grid) return;
 function anchorAt(b){
 if(!b || b.disabled) return false;
 const k=b.dataset.date, t=+b.dataset.t;
-const oh=hoursFor(k); if(!oh) return false;
-const latest = oh[1]*60 - CONFIG.MIN_HOURS*60;
-let start = Math.min(t, latest);
-while(start >= oh[0]*60 && !slotFree(k, start, start+CONFIG.MIN_HOURS*60)) start -= 60;
-if(start < oh[0]*60) return false;
+const start = coveringStart(k,t);
+if(start===null) return false;
 pickDate(k); setStart(start); paintSlots();
 return true;
 }
@@ -323,7 +343,10 @@ if(!b || b.dataset.date!==S.selDate) return;
 const t=+b.dataset.t;
 if(t < S.selStart) return;
 const want=(t-S.selStart)/60+1;
-const h=Math.max(CONFIG.MIN_HOURS, Math.min(want, maxHours(S.selDate,S.selStart)));
+const allowed=durationsFor(S.selDate,S.selStart);
+if(!allowed.length) return;
+let h=allowed[0];
+allowed.forEach(x=>{ if(x<=want) h=x; });
 if(h!==S.selHours){ S.selHours=h; fillDurations(); paint(); paintSlots(); }
 }
 grid.addEventListener('pointerdown', e=>{
@@ -350,16 +373,18 @@ fillDurations(); paint();
 }
 function setStart(t){
 S.selStart=t; el('f-start').value=t;
-const max=maxHours(S.selDate,t);
-if(!S.selHours || S.selHours>max) S.selHours=Math.min(CONFIG.MIN_HOURS,max);
+const allowed=durationsFor(S.selDate,t);
+if(!allowed.includes(S.selHours)) S.selHours = allowed.length?allowed[0]:null;
 fillDurations(); paint();
 }
 function fillDurations(){
 const sel=el('f-dur');
 if(S.selDate===null||S.selStart===null){ sel.innerHTML='<option value="">—</option>'; sel.disabled=true; return; }
 sel.disabled=false;
-const max=maxHours(S.selDate,S.selStart); let h='';
-for(let x=CONFIG.MIN_HOURS;x<=max;x++) h+=`<option value="${x}">${hoursLabel(x)}</option>`;
+let h='';
+durationsFor(S.selDate,S.selStart).forEach(x=>{
+h+=`<option value="${x}">${hoursLabel(x)}${x>=CONFIG.FULL_DAY_HOURS?' — full day':''}</option>`;
+});
 sel.innerHTML = h || '<option value="">No duration available</option>';
 if(S.selHours) sel.value=S.selHours; else if(sel.options.length){ sel.selectedIndex=0; S.selHours=+sel.value; }
 }
@@ -395,7 +420,7 @@ const c=quote(S.selDate,S.selHours), P=CONFIG.PRICING;
 const when=parseISO(S.selDate).toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
 q.innerHTML = `
 <div class="qline"><span>${when}, ${fmtTime(S.selStart)}–${fmtTime(S.selStart+S.selHours*60)}</span><b>${hoursLabel(S.selHours)}</b></div>
-<div class="qline"><span>${c.flat?'Full-day rate':'Space hire'}${c.disc?`<span class="badge">5% off</span>`:''}</span><b>${money(c.base)}</b></div>
+<div class="qline"><span>${c.flat?'Full-day rate':'Space hire'}${c.flat?`<span class="badge">whole day</span>`:''}</span><b>${money(c.base)}</b></div>
 <div class="qline sub total"><span>Booking total</span><b>${money(c.total)}</b></div>
 <div class="qline"><span>Caution fee <span class="badge">refundable</span></span><b>${money(c.caution)}</b></div>
 <div class="qline sub total"><span>Due now</span><b>${money(c.dueNow)}</b></div>
@@ -486,7 +511,7 @@ if(!bookable(k)){
 err.textContent='Bookings open '+CONFIG.LEAD_DAYS_MIN+' days ahead and run '+CONFIG.LEAD_DAYS_MAX+' days out. For anything sooner, email studiomao.lagos@gmail.com.';
 err.classList.add('on'); return;
 }
-if(!hoursFor(k)){ err.textContent='We\'re closed that day. Mon–Fri 9–5, Sat 10–4.'; err.classList.add('on'); return; }
+if(!hoursFor(k)){ err.textContent='We\'re closed that day. Mon–Fri 9am–6pm, Sat 10am–4pm.'; err.classList.add('on'); return; }
 err.classList.remove('on'); pickDate(k); render();
 };
 el('f-start').onchange=e=>{ if(e.target.value){ setStart(+e.target.value); paintSelection(); } };
