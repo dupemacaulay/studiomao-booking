@@ -575,16 +575,19 @@ console.warn('studio.MAO: confirm call failed —', e.message);
 el('again').onclick=()=>{
 el('doneView').style.display='none'; el('formView').style.display='block';
 el('cal-section').style.display='';
+submitKey=null;
 el('done-title').textContent='Thank you for booking';
 el('pay-status').textContent=''; el('pay-status').className='pay-status';
 resetForm();
 };
+let submitKey=null;
 el('submit').onclick=async ()=>{
 const err=el('e-form'); err.classList.remove('on');
+if(!submitKey) submitKey='C'+Date.now().toString(36)+Math.random().toString(36).slice(2,8);
 const data={
 date:S.selDate, start:S.selStart!==null?hhmm(S.selStart):'', hours:S.selHours,
 name:el('f-name').value.trim(), email:el('f-email').value.trim(), phone:el('f-phone').value.trim(),
-org:el('f-org').value.trim(), guests:el('f-guests').value, seating:S.seating, notes:el('f-notes').value.trim()
+org:el('f-org').value.trim(), guests:el('f-guests').value, seating:S.seating, notes:el('f-notes').value.trim(), clientRef:submitKey
 };
 const missing=[];
 if(!data.date||!data.start||!data.hours) missing.push('a time slot');
@@ -628,6 +631,7 @@ pay.style.display='none';
 }
 el('formView').style.display='none'; el('doneView').style.display='block';
 el('cal-section').style.display='none';
+submitKey=null;
 S.loaded.delete(data.date);
 await loadRange(parseISO(data.date),parseISO(data.date));
 resetForm();
